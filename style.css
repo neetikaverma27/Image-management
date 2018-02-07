@@ -1,0 +1,50 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+
+.column {
+  flex: 25%;
+  max-width: 25%;
+  padding: 0 45px;
+  background-color: cadetblue;
+}
+
+.column img {
+  margin-top: 8px;
+  vertical-align: middle;
+}
+
+.uploadhandler{
+background: #0066A2;
+color: white;
+border-style: outset;
+border-color: #0066A2;
+height: 50px;
+width: 100px;
+font: bold 15px arial, sans-serif;
+text-shadow:none;
+margin-bottom: 14px;
+}
+
+.button{
+    position: absolute;
+    left: 16px;
+}
+
+input[type=button] {
+  border: 1px dotted #999;
+  border-radius:11px;
+  background-color: grey;
+  -webkit-appearance: none;
+}
+
+input[type=submit] {
+  border: 1px dotted #999;
+  border-radius:11px;
+  background-color: grey;
+  -webkit-appearance: none;
+  margin-right: 120px;
+}

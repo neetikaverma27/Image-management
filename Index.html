@@ -1,0 +1,82 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="Scripts/jquery-3.1.1.min.js"></script>
+    <script src="Scripts/jquery.form.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> 
+</head>
+
+<body>
+    <form id="frmUploader" enctype="multipart/form-data" action="api/Upload/" method="post">
+        <input type="file" name="userFile" multiple />
+        <input class="uploadhandler" type="submit" name="submit" id="btnSubmit" value="Upload" />
+        <input class="uploadhandler" type="button" name="retrievalBtn" id="retireve-btn" value="Retreive" onclick="retreive()" />
+    </form>
+    <!-- <div class="row"> -->
+        <div class="row" id="image-section">
+        </div>
+    <!-- </div> -->
+    <script>
+        $(document).ready(function () {
+            var options = {
+                beforeSubmit: showRequest,  // pre-submit callback
+                success: showResponse  // post-submit callback
+            };
+
+            // bind to the form's submit event
+            $('#frmUploader').submit(function () {
+                $(this).ajaxSubmit(options);
+                // always return false to prevent standard browser submit and page navigation
+                return false;
+            });
+        });
+
+        $('#skill_category').on('change', function () {
+            $('.skill').hide()
+            $('#' + this.value).show()
+        });
+        $('#img').attr('src', '');
+        // pre-submit callback
+        function showRequest(formData, jqForm, options) {
+            alert('Uploading is starting.');
+            return true;
+        }
+
+        // post-submit callback
+        function showResponse(responseText, statusText, xhr, $form) {
+            alert('status: ' + statusText + '\n\nresponseText: \n' + responseText);
+        }
+
+        function onClickRemove(imageId) {
+            console.log(imageId);
+            $('#imgdiv_' + imageId).remove();
+
+        }
+
+        function retreive() {
+
+            $.get("/api/imageNames", function (imgNames) {
+                var $imageSection = $("#image-section");
+                $("#image-section").html("");
+                for (var i = 0; i < imgNames.length; i++) {
+                    var imgDiv = "<div class='column' id='imgdiv_" + i + "'/>";
+                    $imageSection.append(imgDiv);
+
+                    var source = "Images/" + imgNames[i];
+                    var imgDivId = "#imgdiv_' + i";
+                    $imageSection.find('div#imgdiv_' + i).append("<img id=img_" + i + " src='" + source + "'/>");
+                    $imageSection.find('div#imgdiv_' + i).append("<input id='removeButton' type='button' onclick='onClickRemove(" + i + ")' value='Remove'/>");
+                  
+                }
+            });
+
+        };
+    </script>
+</body>
+
+</html>
