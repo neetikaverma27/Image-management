@@ -1,12 +1,12 @@
 ﻿
-var Express = require('express');
+var express = require('express');
 var multer = require('multer');
 var bodyParser = require('body-parser');
 var path = require('path');
-var app = Express();
+var app = express();
 var fs = require('fs');
 app.use(bodyParser.json());
-app.use(Express.static(__dirname));
+app.use(express.static(__dirname));
 var Storage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, "./Images");
@@ -54,6 +54,6 @@ app.post('/api/Upload', function (req, res) {
     })
 })
 
-app.listen(5000, function (a) {
-    console.log("Listening to port 5000");
+app.listen(3000, function (a) {
+    console.log("Listening to port 3000");
 });
